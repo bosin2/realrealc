@@ -1748,6 +1748,7 @@ void event11() {
             print_at(10, 10, "____________판 매 품 목____________");
             print_at(10, 11, "|                                 |");
             move_cursor(10, 12);
+            //랜덤값으로아이템할당
             for (int i = 0; i < ITEMS_TO_DISPLAY; ++i) {
                 int random_weapon_index = rand() % ITEM_COUNT;
                 printf("|   > %d. %-20s %5d gold |\n", i + 1, weapons[random_weapon_index].weapon_name, weapons[random_weapon_index].price);
