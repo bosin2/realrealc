@@ -1,4 +1,4 @@
 .vs
 x64
-realgame.c\x64
-realgame.c\realgame.c.*
+realgame.c/x64
+realgame.c/realgame.c.*

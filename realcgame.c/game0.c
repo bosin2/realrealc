@@ -84,7 +84,10 @@ int totalGold = 0;
 int totalStrength = 0;
 int totalHeart = 3;
 int totalHealth = 100;
+//일반 적 체력
 int total_youHealth = 100;
+//보스 체력
+int total_bossHealth = 200;
 //골드
 void Gold(int amount) {
     totalGold += amount;
@@ -117,9 +120,13 @@ void Health(int amount) {
         totalHealth = 100;
     }
 }
-//적체력
+//일반적체력
 void youHealth(int amount) {
     total_youHealth += amount;
+}
+//보스체력
+void bossHealth(int amount) {
+    total_bossHealth += amount;
 }
 //아이템용 무작위로 섞어주는 함수
 void shuffle(int* array, int n) {
@@ -152,8 +159,13 @@ typedef struct {
     char* special_name;
     void (*special_Function)(void);
 } Special;
+//보스 구조체
+typedef struct {
+    char* boss_name;
+    void (*boss_Function)(void);
+} Boss;
+
 void status() {
-    clear_text();
     move_cursor(40, 5);
     print_at(40, 3, " _______상 태 창_______\n");
     print_at(40, 4, "|                     |\n");
@@ -553,27 +565,27 @@ void fight3() {
 void fight4() {
     clear_text();
     Fight_UI();
-    print_at(49, 17, "     @     @      @@@@@        ");
-    print_at(49, 18, "      @   @       @   @        ");
-    print_at(49, 19, "        @         @@@@@        ");
-    print_at(49, 20, "      @@@@@         @          ");
-    print_at(49, 21, "        @         @@@@@        ");
-    print_at(49, 22, "        @           @          ");
-    print_at(49, 23, "        @@@@@@@@@@@@@          ");
-    print_at(49, 24, "  @ @@@@             @@@@ @    ");
-    print_at(49, 25, "   @                      @    ");
-    print_at(49, 26, "    @                    @     ");
-    print_at(49, 27, "   @     ●       ●      @    ");
-    print_at(49, 28, "   @    ///  ㅅ   ///     @    ");
-    print_at(49, 29, "    @                    @     ");
-    print_at(49, 29, "      @                 @      ");
-    print_at(49, 30, "     @                   @     ");
-    print_at(49, 31, "    @   @             @   @   ");
-    print_at(49, 32, "   @   @               @   @   ");
-    print_at(49, 33, "   @$$$@               @$$$@    ");
-    print_at(49, 34, "        @    ____     @        ");
-    print_at(49, 35, "        @    @   @    @        ");
-    print_at(49, 36, "         @@@@@   @@@@@         ");
+    print_at(49, 17, "       @     @      @@@@@        ");
+    print_at(49, 18, "        @   @       @   @        ");
+    print_at(49, 19, "          @         @@@@@        ");
+    print_at(49, 20, "        @@@@@         @          ");
+    print_at(49, 21, "          @         @@@@@        ");
+    print_at(49, 22, "          @           @          ");
+    print_at(49, 23, "          @@@@@@@@@@@@@          ");
+    print_at(49, 24, "    @ @@@@             @@@@ @    ");
+    print_at(49, 25, "     @                      @    ");
+    print_at(49, 26, "      @   888       888    @     ");
+    print_at(49, 27, " ####@     ●_______●       @####    ");
+    print_at(49, 28, "@    @       |     |         @    @");
+    print_at(49, 29, "@     @      |_____|        @    @ ");
+    print_at(49, 29, " @     @                  @    @ ");
+    print_at(49, 30, "   @    @                @    @    ");
+    print_at(49, 31, "     @                     @   ");
+    print_at(49, 32, "       @                 @        ");
+    print_at(49, 33, "         @             @       ");
+    print_at(49, 34, "         @    ____     @        ");
+    print_at(49, 35, "         @    @   @    @        ");
+    print_at(49, 36, "          @@@@@   @@@@@         ");
     move_cursor(15, 45);
     print_slow("다크데빌수뭉이가 나타났다 ! 무서워 !");
     Sleep(1000);
@@ -1459,18 +1471,142 @@ Weapon weapons[ITEM_COUNT] = {
 //특수적
 //정재웅
 void specials1() {
-
+    clear_text();
+    Fight_UI2();
+    print_slow_at(15, 45, "당신은 길을 걷다 를 마주쳤다");
 }
 //김민준
 void specials2() {
-
+    clear_text();
+    Fight_UI2();
+    print_slow_at(15, 45, "당신은 길을 걷다 를 마주쳤다");
 }
 //이경민
 void specials3() {
-
+    clear_text();
+    Fight_UI2();
+    print_slow_at(15, 45, "당신은 길을 걷다 를 마주쳤다");
 }
 //박조화
 void specials4() {
+    clear_text();
+    Fight_UI();
+    print_at(46, 24, "   　　　쿨쿨zZz");
+    print_at(46, 25, "zzz .∧ﾍ／⌒⌒ヽ");
+    print_at(46, 26, "　＜⌒/　　　　ヽ");
+    print_at(46, 27, "／＜_/＿＿＿＿／");
+    print_at(46, 28, "    ￣￣￣￣￣￣");
+    print_slow_at(15, 45, "당신은 길을 걷다 자고있는 나는조화를 마주쳤다...");
+    printf("                                                         ");
+    Sleep(1000);
+    print_slow_at(15, 45, "음... 말을 걸어볼까 ? 공격대신 말을 걸어보자");
+    while (0) {
+        int choice;
+        move_cursor(15, 46);
+        scanf("%d", &choice);
+        switch (choice) {
+        case 1:
+            move_cursor(15, 45);
+            print_slow("당신은 나는조화에게 대화를 건넸다 ");
+            Sleep(1000);
+            print_at(15, 45, "                                                ");
+            print_slow("\"저기요 좀 지나갈게요...\"");
+            Sleep(1000);
+            print_at(15, 45, "                                                ");
+            print_slow("나는 조화는 그냥 자고있다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                ");
+
+            break;
+        case 2:
+            move_cursor(15, 45);
+            print_slow("방어하기를 선택했다... 대체 무엇을 방어하려고 ? ");
+            Sleep(1000);
+            print_at(15, 45, "                                                ");
+            break;
+
+        case 3:
+            move_cursor(15, 45);
+            print_slow("도망가기를 선택했다... 누구에게서 ?");
+            Sleep(1000);
+            print_at(15, 45, "                                                ");
+            int run = rand() % 100;
+            Sleep(1000);
+
+            if (run < 30) {
+                move_cursor(15, 45);
+                print_slow("도망가기에 성공했다... 사실 그냥 뛰어넘었을 뿐이다");
+                Sleep(1000);
+                print_at(15, 45, "                                                ");
+                return;
+            }
+
+            else {
+                move_cursor(15, 45);
+                print_slow("도망치기에 실패했다... 다시 말을 한번 걸어볼까");
+                Sleep(1000);
+                print_at(15, 45, "                                                ");
+                print_slow("애초에 왜 도망치려 하는 거지...");
+                Sleep(1000);
+                print_at(15, 45, "                                                ");
+                break;
+            }
+        default:
+            print_at(15, 45, "음... 뭐 가끔은 아무것도 안해도 괜찮을것 같아");
+            break;
+
+        }
+        print_slow_at(15, 45, "나는조화는 대꾸도 안하고 자고있다...\n");
+        printf("                                                      ");
+        Sleep(1000);
+        status();
+
+        if (totalHealth <= 50) {
+            print_slow_at(15, 45, "갑자기 나는조화가 벌떡 일어났다 !!!!\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            print_slow_at(15, 45, "\"아 깜짝이야\"");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            print_slow_at(15, 45, "나는조화 : 너 조심해.\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            print_slow_at(15, 45, "\"네????\"\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            print_slow_at(15, 45, "그 말을 끝으로 나는조화는 사라졌다...\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            print_slow_at(15, 45, "당신의 체력이 모두 회복되었습니다...흐응 ?\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            Health(100);
+            status();
+            Sleep(1000);
+            return 0;
+        }
+        else {
+            print_slow_at(15, 45, "나는 조화를 한번 건드려 봤다");
+            Sleep(1000);
+            print_at(15, 45, "                                                              ");
+            print_slow_at(15, 45, "가만히 자고있다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "그냥 무시하고 지나가는게 나을것 같다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "갑자기 벌에 쏘였다. 아야 ! 뭐지 진짜 ???");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "나는조화를 쳐다봤지만 여전히 자고 있을 뿐 이었다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            Health(-10);
+            status();
+            return 0;
+        }
+    }
+
 
 }
 //동앗줄의길태숙
@@ -1609,7 +1745,7 @@ void event3() {
     print_slow("당신은 길에서 금화를 발견했습니다. 럭키!\n");
     printf("\n");
     int replace[] = { totalGold };
-    print_slow3("당신의 소지금이 %dG가 되었습니다.\n",30, replace,1);
+    print_slow3("당신의 소지금이 %G가 되었습니다.\n",30, replace,1);
     printf("\n");
     print_slow("당신은 신나는 기분으로 앞으로 나아갔습니다. 좋은일도 가끔씩은 있어야죠 !");
     Sleep(1000);
@@ -1682,10 +1818,11 @@ void event6() {
         printf("\n");
         totalStrength += strength_up;
         totalHealth -= health_lost;
-        print_slow("당신은 칼을 얻어 공격력이 %가 되었습니다.\n", totalStrength);
+        int replace[] = { totalStrength };
+        print_slow("당신은 칼을 얻어 공격력이 %가 되었습니다.\n",30, replace, 1 );
         printf("\n");
-        int replace[] = { totalHealth };
-        print_slow3("으, 피가 너무 흐른다. \"아파...\" 체력이 %가 되었습니다.\n",30, replace, 1);
+        int replace2[] = { totalHealth };
+        print_slow3("으, 피가 너무 흐른다. \"아파...\" 체력이 %가 되었습니다.\n",30, replace2, 1);
         printf("\n");
         Sleep(900);
         break;
@@ -1697,7 +1834,7 @@ void event6() {
         Sleep(900);
         break;
     default:
-        print_slow("다른 선택은 없는거 같다.\n");
+        print_slow("다른 선택은 하기가 싫다\n");
         Sleep(900);
         event6();
         break;
@@ -1748,7 +1885,7 @@ void event8() {
     Health (- 20);
     printf("\n");
     int replace[] = { totalHealth };
-    print_slow3("진이 모두 빠져버린 당신은 망신창이가 되었습니다. 체력을 20잃어 % 가 되었습니다.\n",30, replace,1);
+    print_slow3("진이 모두 빠져버린 당신은 망신창이가 되었습니다. 체력을 20 잃어 % 가 되었습니다.\n",30, replace,1);
     Sleep(1000);
 
     
@@ -1868,9 +2005,8 @@ void event10() {
         print_slow("하지만 무시하고 걸어가자, 당신은 목이 굉장히 마르기 시작했습니다.\n");
         printf("\n");
         print_slow("\"젠장... 목이 너무 말라...\"\n");
-        Health(-5);
         printf("\n");
-        int replace2[] = { totalHealth };
+        int replace2[] = { totalHealth-5 };
         print_slow3("당신은 갈증을 참을 수 없습니다... 체력이 5감소 해서 %가 되었습니다,..\n",30, replace2, 1);
         Sleep(1000);
         break;
@@ -2042,25 +2178,387 @@ Fight fights[] = {
 };
 
 //특수적 배열
-Special specials[] = {
+Special specials[6] = {
     {"정재웅", specials1},
     {"김민준",specials2 },
     {"이경민",specials3 },
     {"박조화",specials4 },
     {"동앗줄의길태숙",specials5 },
     {"쌍동앗줄날개성한울",specials6 },
-    {"각성한녹말이쑤시개의김석규",specials7 },
-    {"각성한사슬낫의박소영",specials8 },
      
 };
-       
-//보스1사슬낫의김석규
-void boss1() {
-    clear_text();
-    move_cursor(0, 10);
-    printf("사슬낫의 김석규등장");
-    Sleep(1000);
+//마왕
+void bosses3() {
+
 }
+//보스대화분기초기화
+int text_boss2 = 0;
+//녹말이쑤시개의박소영
+void bosses2() {
+    clear_text();
+    Fight_UI2();
+    print_at(49, 24, "   ¯ ╭━━━━╮___         ");
+    print_at(49, 25, "   . | :::::::::: / ___ /  ");
+    print_at(49, 26, " * < | :::::::::(｡ ●ω●｡)");
+    print_at(49, 27, "    >し------し-- - Ｊ     ");
+    move_cursor(15, 35);
+    print_slow("보스, 녹말이쑤시개의 박소영이 등장했다.");
+    Sleep(1000);
+    print_at(15, 45, "\"안녕 난 녹말이쑤시개의 박소영이라고 해\"");
+    Sleep(1000);
+    print_at(15, 45, "                                                           ");
+    print_at(15, 45, "\"지금 마왕한테 가는길 인거지?\"");
+    Sleep(1000);
+    print_at(15, 45, "                                                           ");
+    print_at(15, 45, "\"자 그러면 바로 본론으로 들어가자\"");
+    Sleep(1000);
+    print_at(15, 45, "                                                           ");
+    while (totalHealth > 0 && total_youHealth > 0 || text_boss2 <= 4) {
+        int choice;
+        print_slow_at(15, 45, "무엇을 할까 ? ");
+        Sleep(1000);
+        print_at(15, 45, "                                                           ");
+        move_cursor(15, 46);
+        scanf("%d", &choice);
+        switch (choice) {
+        case 1:
+            move_cursor(15, 45);
+            print_slow("공격하기를 선택했다 ! 타이밍을 잘 맞추도록 하자 ");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            break;
+        case 2:
+            move_cursor(15, 45);
+            print_slow("방어하기를 선택했다 ! 박소영 교수님이 어디로 공격을 하실까... ?? ");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow("아차, 여기서는 녹말이쑤시개의 박소영이다, 말을 조심하도록 하자");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            break;
+        case 3:
+            move_cursor(15, 45);
+            print_slow("대화하기를 선택했다 ! 일단은 사슬낫의 김석규도 대화가 통했으니까...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            int text_count = rand() % 100;
+            Sleep(1000);
+
+            if (text_count < 40) {
+                move_cursor(15, 45);
+                print_slow("\"저기 녹말이쑤시개의 박소영씨? 님? 아무튼, 마왕은 어떤 사람이죠?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow("\"그게 왜 궁금 한건데? 너도 이제는 알 때도 되지 않았어?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow("녹말이쑤시개는 이상한 소리를 하는 것 같습니다.");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow("\"흐음 뭐 잘해봐 난 별로 관심 없어서\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss2++;
+                break;
+            }
+
+            else {
+                move_cursor(15, 45);
+                print_slow("\"저기 녹말이쑤시개의 박소영씨? 님? 아무튼, 마왕은 어떤 사람이죠?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow("\"몰라?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow("녹말이쑤시개의 박소영은 c 뿌리기 공격을 준비중이다...");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                break;
+            }
+            if (text_boss2 == 1) {
+                print_slow_at(15, 45, "당신은 곰곰히 생각 해 봅니다. 정말로 모르는지,");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"...정말로 모르겠어요. 여러분들이 무슨 말을 하는건지\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "맙소사.");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"와, 너 진짜 멍청하구나?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss2++;
+                break;
+            }
+            if (text_boss2 == 2) {
+                print_slow_at(15, 45, "\"네???\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"갑자기 재미있어지네\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"뭐, 됐어");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"저기, 저는 마왕을 물리치고 싶지 않아요. 꼭 만나서 대화를 해보고싶어요\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"흠, 그래? 뭐 그러면 비켜줄 수도 있지\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "당신은 갑자기 투지가 불타오릅니다");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss2++;
+                break;
+            }
+            if (text_boss2 == 3) {
+                print_slow_at(15, 45, "\"아아... 좀 더 같이 있자, 버틸 수 있지?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"아뇨... 대화를 하는데 왜 공격을...\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"'누군가' 가 그걸 원하거든\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "녹말이쑤시개의 박소영은 종일 이상한 얘기만 하네요. 얘기할 가치가 없습니다.");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss2++;
+                break;
+            }
+        default:
+            print_slow_at(15, 45, "지금 뭐하는거야 !!! 소중한 한 턴을 낭비 했다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            break;
+
+        }
+
+        print_slow_at(15, 45, "녹말이쑤시개의 박소영은 c뿌리기를 사용했다 !\n");
+        int boss3_Damage = rand() % 30 + 50;
+        int replace[] = { boss3_Damage };
+        print_slow3("켁, 숨이 안쉬어 진다 %를 받았다... c는 너무 어려워...\n", 50, replace, 1);
+        Sleep(1000);
+        print_at(15, 45, "                                                           ");
+        totalHealth -= boss3_Damage;
+        status();
+        Sleep(1000);
+
+        if (totalHealth <= 0) {
+            print_slow_at(15, 45, "목숨이 하나 줄어들었다...\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            Heart(1);
+            status();
+            Sleep(1000);
+            break;
+        }
+        else if (total_bossHealth <= 0 || text_boss2 == 4) {
+            print_slow_at(15, 45, "\"아, 시간됐다 그럼 이만\"");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "녹말이쑤시개의 박소영은 도망쳤다 !");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "녹말이쑤시개의 박소영이 있던자리에는 아무것도 없었다...실망스러워");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "아하하하,,, 가끔은 안 좋은 일도 있는 법이죠 ");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            Heart(totalHeart);
+            Health(totalHealth);
+            status();
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+
+            void handle_load_count(load_count);
+        }
+    }
+
+}
+
+//보스1대화변수초기화
+int text_boss1 = 0;
+
+//보스1사슬낫의김석규
+void bosses1() {
+   clear_text();
+   Fight_UI2();
+   print_at(49, 24, "   ¯ ╭━━━━╮___         ");
+   print_at(49, 25, "   . | :::::::::: / ___ /  ");
+   print_at(49, 26, " * < | :::::::::(｡ ●ω●｡)");
+   print_at(49, 27, "    >し------し-- - Ｊ     ");
+   move_cursor(15, 35);
+   print_slow("보스, 사슬낫의 김석규가 등장했다.");
+   Sleep(1000);
+   print_at(15, 45, "\"음, 나는 사슬낫의김석규다. 여기까지 온 걸 일단 환영하지\"");
+   Sleep(1000);
+   print_at(15, 45, "                                                           ");
+   print_at(15, 45, "\"자네는...음 마왕님을 무찌르러 가는길인건가 ?\"");
+   Sleep(1000);
+   print_at(15, 45, "                                                           ");
+   print_at(15, 45, "그렇다면 어쩔수 없지만 나를 먼저 지나가야 합세");
+   Sleep(1000);
+   print_at(15, 45, "                                                           ");
+   while (totalHealth > 0 && total_youHealth > 0 || text_boss1 <= 4) {
+       int choice;
+       print_slow_at(15, 45, "무엇을 할까 ? ");
+       Sleep(1000);
+       print_at(15, 45, "                                                           ");
+       move_cursor(15, 46);
+       scanf("%d", &choice);
+       switch (choice) {
+       case 1:
+           move_cursor(15, 45);
+           print_slow("공격하기를 선택했다 ! 타이밍을 잘 맞추도록 하자 ");
+           Sleep(1000);
+           print_at(15, 45, "                                                           ");
+                       break;
+        case 2:
+           move_cursor(15, 45);
+           print_slow("방어하기를 선택했다 ! 김석규교수님이 어디로 공격을 하실까... ?? ");
+           Sleep(1000);
+           print_at(15, 45, "                                                           ");
+           print_slow("아차, 여기서는 사슬낫의 김석규다, 말을 조심하도록 하자");
+           Sleep(1000);
+           print_at(15, 45, "                                                           ");
+           break;
+                   case 3:
+           move_cursor(15, 45);
+           print_slow("대화하기를 선택했다 ! 일단은 보스도 사람이니까 대화를 해보자");
+           Sleep(1000);
+           print_at(15, 45, "                                                           ");
+           int text_count = rand() % 100;
+           Sleep(1000);
+
+            if (text_count < 40) {
+               move_cursor(15, 45);
+               print_slow("사슬낫의 김석규... 마왕은 어떤 사람이지 ?");
+               Sleep(1000);
+               print_at(15, 45, "                                                           ");
+               print_slow("사슬낫의 김석규는 한참을 뜸들이다 대답했다");
+               Sleep(1000);
+               print_at(15, 45, "                                                           ");
+               print_slow("음... 마왕님은 좀... 특이 취향이시지");
+               Sleep(1000);
+               print_at(15, 45, "                                                           ");
+               text_boss1++;
+               break;
+            }
+
+           else {
+               move_cursor(15, 45);
+               print_slow("사슬낫의 김석규... 마왕은 어떤 사람이지?");
+               Sleep(1000);
+               print_at(15, 45, "                                                           ");
+               print_slow("사슬낫의김석규는 대답하지 않고 공격을 준비하고 있다.");
+               Sleep(1000);
+               print_at(15, 45, "                                                           ");
+               break;
+           }
+            if (text_boss1 == 1) {
+                print_slow_at(15, 45, "\"어떤 특이 취향을 말하는 거지?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"글쎄... 자네가 여기까지 잘 왔다면 알 수도\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss1++;
+                break;
+           }
+            if (text_boss1 == 2) {
+                print_slow_at(15, 45, "\"그게 무슨 의미인거지...?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "사슬낫의 김석규는 이상한 소리를 하는 것 같다");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"...크흠, 나는 잘 모르겠네만 아무튼,간에\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss1++;
+                break;
+            }
+            if (text_boss1 == 3) {
+                print_slow_at(15, 45, "\"좀 더 자세히 이야기 해줘 ! 마왕은 어떤 인물이지 ?\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"마왕이 악인이 아니라면 이야기 해보고 싶어 !\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "그건... 정말 좋은 생각인 것 같네요 !");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                print_slow_at(15, 45, "\"어이쿠야,,, 시간이 벌써, 허허허 이만 가보겠네\"");
+                Sleep(1000);
+                print_at(15, 45, "                                                           ");
+                text_boss1++;
+                break;
+            }
+        default:
+            print_slow_at(15, 45, "지금 뭐하는거야 !!! 소중한 한 턴을 낭비 했다...");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            break;
+
+        }
+       
+        print_slow_at(15, 45, "사슬낫의김석규는 파이썬뿌리기를 사용했다 !\n");
+        int boss1_Damage = rand() % 20 + 40;
+        int replace[] = { boss1_Damage };
+        print_slow3("크윽, 역시 보스인가... %d의 피해를 입었다...\n", 50, replace, 1);
+        Sleep(1000);
+        print_at(15, 45, "                                                           ");
+        totalHealth -= boss1_Damage;
+        status();
+        Sleep(1000);
+
+        if (totalHealth <= 0) {
+            print_slow_at(15, 45, "목숨이 하나 줄어들었다...\n");
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+            Heart(1);
+            status();
+            Sleep(1000);
+            break;
+        }
+        else if (total_bossHealth <= 0 || text_boss1 == 4) {
+            print_slow_at(15, 45, "\"크흠, 다음에 보도록 하지,,,\"");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "사슬낫의 김석규는 도망쳤다 !");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "사슬낫의 김석규가 있던자리에는 금은보화가 가득이였다 !");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            print_slow_at(15, 45, "우후후,, 좋은 날이네요, 이런 날도 있어야죠 ");
+            Sleep(1000);
+            print_at(15, 45, "                                                           ");
+            Gold(500);
+            Heart(totalHeart);
+            Health(totalHealth);
+            status();
+            Sleep(1000);
+            print_at(15, 45, "                                                       ");
+
+            void handle_load_count(load_count);
+        }
+    }
+
+}
+//보스 배열
+Boss bosses[3] = {
+    {"사슬낫의김석규", bosses1},
+    {"녹말이쑤시개의박소영",bosses2 },
+    {"마왕",bosses3 },
+};
+
+
 
 //길 선택수 초기화
 int load_count = 0;
@@ -2069,70 +2567,109 @@ int current_special = 0;
 
 //갈림길함수정의
 void handle_load_count(int count) {
-    clear_text();
-    while (load_count < 4) {
+    
+    while (load_count < 12) {
         clear_text();
-        print_slow_at(3, 2, "또 다시 갈림길이다.");
-        print_at(10, 5, "> a. 뭔가 무시무시한 소리가 들리는 길\n");
-        print_slow_at(15, 8, " *피가 끓어 오르는 소리가 들린다. 오른팔이...");
-        print_at(10, 12, "> b. 여러가지 소리가 들려오는 복잡하고 어두운 길\n");
-        print_slow_at(15, 15, " *가면 무언가 벌어질 것만 같아...");
-        print_at(10, 19, "> c. 여기로 가면 안될 것 같다,,,\n");
-        print_slow_at(15, 22, " *진짜로 여기는 가지말자 무서워요...");
-        print_slow_at(10, 25, "어디로 가지? \n");
+        status();
+        if (load_count != 3 && load_count != 7 && load_count != 11) {
+            clear_text();
+            print_slow_at(3, 2, "또 다시 갈림길이다.");
+            print_at(10, 5, "> a. 뭔가 무시무시한 소리가 들리는 길\n");
+            print_slow_at(15, 8, " *피가 끓어 오르는 소리가 들린다. 오른팔이...");
+            print_at(10, 12, "> b. 여러가지 소리가 들려오는 복잡하고 어두운 길\n");
+            print_slow_at(15, 15, " *가면 무언가 벌어질 것만 같아...");
+            print_at(10, 19, "> c. 여기로 가면 안될 것 같다,,,\n");
+            print_slow_at(15, 22, " *진짜로 여기는 가지말자 무서워요...");
+            print_slow_at(10, 25, "어디로 가지? \n");
 
-        char choice;
-        scanf(" %c", &choice);
+            char choice;
+            scanf(" %c", &choice);
 
-        switch (choice) {
-        case 'a':case 'A':
-            clear_text();
-            move_cursor(0, 10);
-            print_slow("투지가 불 타 오른다\n");
-            int random_fight = rand() % 10;
-            fights[random_fight].fight_Function();
-            load_count++;
-            break;
-        case 'b':
-            clear_text();
-            move_cursor(0, 10);
-            print_slow("이상한 기분이다...\n");
-            Sleep(1000);
-            srand(time(0));
-            int random_event = rand() % 10;
-            events[random_event].event_Function();
-            load_count++;
-            break;
-        case 'c':
-            clear_text();
-            move_cursor(0, 10);
-            print_slow("앞으로 나아가니 이상한게 보인다... 가까이 가면 안될거같은데\n");
-            int random_special = +1;
-            Sleep(1000);
-            for (int i = 0; i < 10; ++i) {
-                specials[i].special_Function();
+            switch (choice) {
+            case 'a':case 'A':
+                clear_text();
+                move_cursor(0, 10);
+                print_slow("투지가 불 타 오른다\n");
+                int random_fight = rand() % 10;
+                fights[random_fight].fight_Function();
+                load_count++;
+                break;
+            case 'b':
+                clear_text();
+                move_cursor(0, 10);
+                print_slow("이상한 기분이다...\n");
+                Sleep(1000);
+                srand(time(0));
+                int random_event = rand() % 10;
+                events[random_event].event_Function();
+                load_count++;
+                break;
+            case 'c':
+                clear_text();
+                move_cursor(0, 10);
+                print_slow("앞으로 나아가니 이상한게 보인다... 가까이 가면 안될거같은데\n");
+                int random_special = +1;
+                Sleep(1000);
+                for (int i = 0; i < 5; ++i) {
+                    specials[i].special_Function();
+                }
+                break;
+
+            default:
+                clear_text();
+                move_cursor(0, 10);
+                print_slow("다른길은 없는 것 같다. 나아가야 할 때다.\n");
+                handle_load_count(load_count);
+                break;
             }
-            break;
-
-        default:
+        }
+        else if (load_count == 3) {
             clear_text();
             move_cursor(0, 10);
-            print_slow("다른길은 없는 것 같다. 나아가야 할 때다.\n");
-            handle_load_count(load_count);
-            break;
+            print_slow("갈림길들을 거친 당신 앞에는 한개의 길밖에 남지 않았습니다.\n");
+            printf("\n");
+            print_slow("무시무시한 기운이 느껴집니다. 어떻게 할까요 ?\n");
+            printf("\n");
+            print_slow("\"당연히 가지, 그 동안 난 강해졌다. 출발할때다. 목표는 마왕, 가자 !\"\n");
+            Sleep(1000);
+            clear_text();
+            status();
+            boss1();
         }
-        
+        else if (load_count == 7) {
+            clear_text();
+            move_cursor(0, 10);
+            print_slow("갈림길들을 거친 당신 앞에는 한개의 길밖에 남지 않았습니다.\n");
+            printf("\n");
+            print_slow("무시무시한 기운이 느껴집니다. 어떻게 할까요 ?\n");
+            printf("\n");
+            print_slow("\"당연히 가지, 그 동안 난 더 강해졌다, 사슬낫의김석규도 물리쳤고 말이야. 가자 !!\"\n");
+            printf("\n");
+            print_slow("\"아주,,, 좋은 생각이에요 자 마왕을 향해 가보자구요\"\n");
+            Sleep(1000);
+            clear_text();
+            status();
+            boss2();
+        }
+        else if (load_count == 11) {
+            clear_text();
+            move_cursor(0, 10);
+            print_slow("갈림길들을 거친 당신 앞에는 한개의 길밖에 남지 않았습니다.\n");
+            printf("\n");
+            print_slow("어떠한 기운이 느껴집니다. 어떻게 할까요 ?\n");
+            printf("\n");
+            print_slow("\"당연히 가지, 나는 모든 보스를 물리쳤어, 가자 마왕에게로\"\n");
+            printf("\n");
+            print_slow2("\"우후후,,, 기다렸답니다\"\n",200);
+            Sleep(1000);
+            clear_text();
+            status();
+            boss3();
+        }
+
     }
     
-    clear_text();
-    move_cursor(0, 10);
-    print_slow("갈림길들을 거친 당신 앞에는 한개의 길밖에 남지 않았습니다.\n");
-    printf("\n");
-    print_slow("무시무시한 기운이 느껴집니다. 어떻게 할까요 ?\n");
-    printf("\n");
-    print_slow("\"당연히 가지, 그 동안 난 강해졌다. 출발할때다. 목표는 마왕, 가자 !\"\n");
-    Sleep(1000);
-    boss1();
+   
 }
 
 
@@ -2249,6 +2786,7 @@ void story() {
 }
 //첫번째 길선택 
 void street() {
+    clear_text();
     status();
     Sleep(2000);
     clear_text();
